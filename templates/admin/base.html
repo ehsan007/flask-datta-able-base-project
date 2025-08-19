@@ -12,7 +12,7 @@
         </div>
 
         <!-- Navigation -->
-        <div class="sidebar-nav px-3">
+        <div class="sidebar-nav px-3" style="{% if get_env_var('DISABLE_AUTH', 'false').lower() == 'true' %}padding-bottom: 100px;{% endif %}">
             <!-- Main Section -->
             <div class="nav-section mb-4">
                 <h6 class="text-muted text-uppercase fw-bold small px-3 mb-3">MAIN</h6>
@@ -34,6 +34,22 @@
                 </a>
             </div>
         </div>
+
+        <!-- Authentication Disabled Warning -->
+        {% if get_env_var('DISABLE_AUTH', 'false').lower() == 'true' %}
+        <div class="position-absolute bottom-0 w-100 p-3">
+            <div class="alert alert-danger mb-0 text-center" style="background: rgba(220, 53, 69, 0.9); border: 2px solid #dc3545; font-size: 11px; line-height: 1.2;">
+                <div class="fw-bold text-uppercase mb-1">
+                    <i class="fas fa-exclamation-triangle me-1"></i>
+                    DEVELOPMENT MODE
+                </div>
+                <div class="small">
+                    Authentication Disabled!<br>
+                    <strong>DO NOT DEPLOY TO PRODUCTION!</strong>
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </nav>
     <!-- End of Sidebar -->
 

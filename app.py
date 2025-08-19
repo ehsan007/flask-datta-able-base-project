@@ -4,6 +4,7 @@ from flask_login import LoginManager, login_required, current_user, login_user, 
 from flask_bcrypt import Bcrypt
 from datetime import datetime
 import os
+from functools import wraps
 from config import config, get_env, get_config
 
 app = Flask(__name__)
@@ -58,16 +59,46 @@ def current_year():
     """Template helper to get current year"""
     return datetime.now().year
 
+# Custom decorator for optional authentication
+def optional_auth_required(f):
+    """
+    Decorator that checks if authentication should be bypassed.
+    If DISABLE_AUTH is True in environment, skips authentication.
+    Otherwise, requires login as normal.
+    """
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        # Check if auth is disabled in development
+        disable_auth = get_env('DISABLE_AUTH', 'false').lower() == 'true'
+        
+        if disable_auth:
+            # If auth is disabled, create a mock admin user for the session
+            # This allows pages to work without breaking
+            if not current_user.is_authenticated:
+                # You can either redirect to login or create a mock user session
+                # For maximum compatibility, we'll redirect with a warning
+                flash('⚠️ DEVELOPMENT MODE: Authentication disabled!', 'warning')
+                # Let the request continue - the template will handle missing current_user gracefully
+            return f(*args, **kwargs)
+        else:
+            # Normal authentication required
+            return login_required(f)(*args, **kwargs)
+    
+    return decorated_function
+
 # Routes
 @app.route('/')
 def index():
     """Main landing page showcasing the flask-datta-able-base."""
-    if current_user.is_authenticated:
+    # Check if auth is disabled in development
+    disable_auth = get_env('DISABLE_AUTH', 'false').lower() == 'true'
+    
+    if current_user.is_authenticated or disable_auth:
         return redirect(url_for('dashboard'))
     return redirect(url_for('login'))
 
 @app.route('/dashboard')
-@login_required
+@optional_auth_required
 def dashboard():
     """Admin dashboard"""
     # Get stats for dashboard
@@ -129,7 +160,7 @@ def login():
     return render_template('auth/login.html')
 
 @app.route('/logout')
-@login_required
+@optional_auth_required
 def logout():
     """User logout"""
     # Log activity
@@ -263,7 +294,7 @@ def llm_status():
 
 # Admin routes for sidebar navigation
 @app.route('/users')
-@login_required
+@optional_auth_required
 def users():
     """User management page"""
     page = request.args.get('page', 1, type=int)
@@ -322,10 +353,12 @@ def charts():
 
 # User management CRUD operations
 @app.route('/users/create', methods=['GET', 'POST'])
-@login_required
+@optional_auth_required
 def create_user():
     """Create new user"""
-    if not current_user.is_admin:
+    # Check admin privileges (skip if auth is disabled)
+    disable_auth = get_env('DISABLE_AUTH', 'false').lower() == 'true'
+    if not disable_auth and not current_user.is_admin:
         flash('Access denied. Admin privileges required.', 'error')
         return redirect(url_for('dashboard'))
     
@@ -371,10 +404,12 @@ def create_user():
     return render_template('admin/user_form.html', user=None)
 
 @app.route('/users/<int:user_id>/edit', methods=['GET', 'POST'])
-@login_required
+@optional_auth_required
 def edit_user(user_id):
     """Edit user"""
-    if not current_user.is_admin:
+    # Check admin privileges (skip if auth is disabled)
+    disable_auth = get_env('DISABLE_AUTH', 'false').lower() == 'true'
+    if not disable_auth and not current_user.is_admin:
         flash('Access denied. Admin privileges required.', 'error')
         return redirect(url_for('dashboard'))
     
@@ -402,16 +437,20 @@ def edit_user(user_id):
     return render_template('admin/user_form.html', user=user)
 
 @app.route('/users/<int:user_id>/delete', methods=['POST'])
-@login_required
+@optional_auth_required
 def delete_user(user_id):
     """Delete user"""
-    if not current_user.is_admin:
+    # Check admin privileges (skip if auth is disabled)
+    disable_auth = get_env('DISABLE_AUTH', 'false').lower() == 'true'
+    if not disable_auth and not current_user.is_admin:
         flash('Access denied. Admin privileges required.', 'error')
         return redirect(url_for('dashboard'))
     
     user = User.query.get_or_404(user_id)
     
-    if user.id == current_user.id:
+    # Prevent self-deletion (skip check if auth is disabled)
+    disable_auth = get_env('DISABLE_AUTH', 'false').lower() == 'true'
+    if not disable_auth and current_user.is_authenticated and user.id == current_user.id:
         flash('You cannot delete your own account.', 'error')
         return redirect(url_for('users'))
     
