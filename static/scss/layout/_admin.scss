@@ -1,0 +1,202 @@
+// Admin Layout Styles
+
+#wrapper {
+  display: flex;
+  width: 100%;
+  
+  #content-wrapper {
+    background-color: #f8f9fc;
+    width: 100%;
+    overflow-x: hidden;
+    margin-left: 260px;
+    transition: all 0.3s ease;
+    
+    &.sidebar-collapsed {
+      margin-left: 70px;
+    }
+    
+    #content {
+      flex: 1;
+      padding: 1.5rem;
+      margin-top: 4.375rem;
+    }
+  }
+}
+
+// Main content area
+.container-fluid {
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+// Page heading
+.page-heading {
+  display: flex;
+  align-items: center;
+  justify-content: between;
+  margin-bottom: 1.5rem;
+  
+  h1 {
+    font-size: 1.75rem;
+    color: #5a5c69;
+    margin-bottom: 0;
+    font-weight: 400;
+  }
+  
+  .breadcrumb {
+    background-color: transparent;
+    padding: 0;
+    margin-bottom: 0;
+    font-size: 0.85rem;
+    
+    .breadcrumb-item {
+      &.active {
+        color: #858796;
+      }
+      
+      a {
+        color: $primary;
+        text-decoration: none;
+        
+        &:hover {
+          color: darken($primary, 15%);
+        }
+      }
+    }
+  }
+}
+
+// Dashboard grid
+.row {
+  margin-left: -0.75rem;
+  margin-right: -0.75rem;
+  
+  > * {
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+  }
+}
+
+// Spacing utilities
+.mb-4 {
+  margin-bottom: 1.5rem !important;
+}
+
+.mb-3 {
+  margin-bottom: 1rem !important;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem !important;
+}
+
+.mt-4 {
+  margin-top: 1.5rem !important;
+}
+
+.mt-3 {
+  margin-top: 1rem !important;
+}
+
+.mt-2 {
+  margin-top: 0.5rem !important;
+}
+
+// Footer
+.sticky-footer {
+  .footer {
+    padding: 2rem 0;
+    background-color: #fff;
+    border-top: 1px solid #e3ebf0;
+    
+    .copyright {
+      line-height: 1;
+      font-size: 0.8rem;
+      color: #858796;
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  #wrapper {
+    #content-wrapper {
+      margin-left: 0;
+      
+      #content {
+        margin-top: 0;
+        padding: 1rem;
+      }
+    }
+  }
+  
+  .page-heading {
+    flex-direction: column;
+    align-items: flex-start;
+    
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+  }
+  
+  .container-fluid {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  .row {
+    margin-left: -0.5rem;
+    margin-right: -0.5rem;
+    
+    > * {
+      padding-left: 0.5rem;
+      padding-right: 0.5rem;
+    }
+  }
+}
+
+// Print styles
+@media print {
+  .sidebar,
+  .topbar,
+  .footer {
+    display: none !important;
+  }
+  
+  #wrapper #content-wrapper {
+    margin-left: 0 !important;
+    
+    #content {
+      margin-top: 0 !important;
+      padding: 0 !important;
+    }
+  }
+}
+
+// Scroll to top button
+.scroll-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  display: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  text-align: center;
+  color: #fff;
+  background: rgba(90, 92, 105, 0.5);
+  line-height: 46px;
+  border-radius: 100%;
+  transition: all 0.3s;
+  z-index: 1031;
+  
+  &:focus,
+  &:hover {
+    color: #fff;
+    background: rgba(90, 92, 105, 0.9);
+  }
+  
+  &:hover {
+    transform: translateY(-2px);
+  }
+}

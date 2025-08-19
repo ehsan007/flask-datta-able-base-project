@@ -1,0 +1,380 @@
+# flask-datta-able-base - Application Configuration
+# This file contains non-sensitive application settings
+# Sensitive data (API keys, passwords) should go in .env file
+
+# =============================================================================
+# APPLICATION SETTINGS
+# =============================================================================
+app:
+  name: "flask-datta-able-base"
+  version: "1.0.0"
+  description: "Modern web application template for rapid prototyping"
+  
+  # Server settings
+  host: "0.0.0.0"
+  port: 5000
+  
+  # Features toggles
+  features:
+    file_uploads: true
+    api_enabled: true
+    health_check: true
+    cors_enabled: false
+
+# =============================================================================
+# DEVELOPMENT SETTINGS
+# =============================================================================
+development:
+  # Auto-reload templates in development
+  template_auto_reload: true
+  
+  # Show detailed error pages
+  explain_template_loading: false
+  
+  # Testing settings
+  testing: false
+  preserve_context_on_exception: null
+
+# =============================================================================
+# FILE UPLOAD CONFIGURATION
+# =============================================================================
+uploads:
+  # Allowed file extensions
+  allowed_extensions:
+    - txt
+    - pdf
+    - png
+    - jpg
+    - jpeg
+    - gif
+    - csv
+    - xlsx
+    - docx
+  
+  # Upload folder (relative to app root)
+  folder: "uploads"
+  
+  # Max file size in bytes (16MB)
+  max_file_size: 16777216
+
+# =============================================================================
+# API CONFIGURATION
+# =============================================================================
+api:
+  # API version
+  version: "v1"
+  
+  # Rate limiting (requests per minute)
+  rate_limit: 100
+  
+  # Default pagination
+  pagination:
+    per_page: 20
+    max_per_page: 100
+  
+  # Response formats
+  default_format: "json"
+  supported_formats:
+    - json
+    - xml
+
+# =============================================================================
+# LOGGING CONFIGURATION
+# =============================================================================
+logging:
+  # Log level (DEBUG, INFO, WARNING, ERROR, CRITICAL)
+  level: "INFO"
+  
+  # Log file settings
+  file:
+    enabled: true
+    filename: "logs/flask_datta_able_base.log"
+    max_bytes: 10485760  # 10MB
+    backup_count: 10
+  
+  # Log format
+  format: "%(asctime)s %(levelname)s: %(message)s [in %(pathname)s:%(lineno)d]"
+
+# =============================================================================
+# CACHE CONFIGURATION
+# =============================================================================
+cache:
+  # Cache type (SimpleCache, FileSystemCache, RedisCache)
+  type: "SimpleCache"
+  
+  # Default timeout in seconds
+  default_timeout: 300
+  
+  # Cache key prefix
+  key_prefix: "flask_base_"
+
+# =============================================================================
+# SECURITY SETTINGS
+# =============================================================================
+security:
+  # Session settings
+  session:
+    permanent_lifetime: 3600  # 1 hour
+    cookie_secure: false      # Set to true in production with HTTPS
+    cookie_httponly: true
+    cookie_samesite: "Lax"
+  
+  # CORS settings (if enabled)
+  cors:
+    origins:
+      - "http://localhost:3000"
+      - "http://localhost:8000"
+    methods:
+      - GET
+      - POST
+      - PUT
+      - DELETE
+    headers:
+      - Content-Type
+      - Authorization
+
+# =============================================================================
+# FRONTEND ASSETS
+# =============================================================================
+assets:
+  # CSS and JS file paths
+  css:
+    - "/static/css/main.css"
+  
+  js:
+    - "https://unpkg.com/htmx.org@1.9.8"
+    - "https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"
+  
+  # CDN settings
+  cdn:
+    enabled: false
+    base_url: ""
+
+# =============================================================================
+# DATABASE SETTINGS (if using database)
+# =============================================================================
+database:
+  # Connection pool settings
+  pool_size: 10
+  pool_timeout: 20
+  pool_recycle: -1
+  
+  # Query settings
+  echo: false  # Set to true to log SQL queries
+  
+  # Migration settings
+  migrate_repo: "migrations"
+
+# =============================================================================
+# EMAIL TEMPLATES (if using email)
+# =============================================================================
+email:
+  templates:
+    welcome: "emails/welcome.html"
+    reset_password: "emails/reset_password.html"
+    notification: "emails/notification.html"
+  
+  # Email settings
+  default_sender: "noreply@flask-datta-able-base.com"
+  send_file_max_age: 43200
+
+# =============================================================================
+# LLM INTEGRATIONS
+# =============================================================================
+llm:
+  # Default LLM provider (openai, anthropic, deepseek)
+  default_provider: "openai"
+  
+  # Provider configurations
+  providers:
+    openai:
+      # API key should be set in .env as OPENAI_API_KEY
+      base_url: "https://api.openai.com/v1"
+      default_model: "gpt-4o-mini"
+      models:
+        fast: "gpt-4o-mini"        # For quick analysis and responses
+        premium: "gpt-4o"          # For complex analysis and insights
+        vision: "gpt-4o"           # For image analysis
+      timeout: 90
+      max_retries: 3
+      max_tokens: 4000
+      temperature: 0.7
+    
+    anthropic:
+      # API key should be set in .env as ANTHROPIC_API_KEY
+      base_url: "https://api.anthropic.com"
+      default_model: "claude-3-5-sonnet-20241022"
+      models:
+        fast: "claude-3-5-haiku-20241022"
+        premium: "claude-3-5-sonnet-20241022"
+        vision: "claude-3-5-sonnet-20241022"
+      timeout: 90
+      max_retries: 3
+      max_tokens: 4000
+      temperature: 0.7
+    
+    deepseek:
+      # API key should be set in .env as DEEPSEEK_API_KEY
+      base_url: "https://api.deepseek.com/v1"
+      default_model: "deepseek-chat"
+      models:
+        fast: "deepseek-chat"
+        premium: "deepseek-reasoner"
+      timeout: 90
+      max_retries: 3
+      max_tokens: 4000
+      temperature: 0.7
+  
+  # Global LLM settings
+  global_settings:
+    # Rate limiting for LLM calls
+    rate_limits:
+      requests_per_minute: 60
+      tokens_per_minute: 40000
+    
+    # Response caching
+    caching:
+      enabled: true
+      ttl_seconds: 3600  # 1 hour cache
+    
+    # Fallback configuration
+    fallback:
+      enabled: true
+      fallback_providers: ["anthropic", "openai", "deepseek"]
+      
+    # Content filtering
+    content_filter:
+      enabled: true
+      max_input_length: 50000
+      blocked_keywords: []
+
+# =============================================================================
+# EXTERNAL APIs
+# =============================================================================
+external_apis:
+  # Perplexity AI for web search and research
+  perplexity:
+    # API key should be set in .env as PERPLEXITY_API_KEY
+    base_url: "https://api.perplexity.ai"
+    enabled: true
+    timeout: 90
+    cache_duration_hours: 24
+    max_retries: 3
+    default_model: "llama-3.1-sonar-small-128k-online"
+    models:
+      fast: "llama-3.1-sonar-small-128k-online"
+      premium: "llama-3.1-sonar-large-128k-online"
+
+  # Email service providers
+  email_providers:
+    sendgrid:
+      # API key should be set in .env as SENDGRID_API_KEY
+      enabled: false
+      timeout: 30
+      max_retries: 3
+    
+    mailgun:
+      # API key should be set in .env as MAILGUN_API_KEY
+      # Domain should be set in .env as MAILGUN_DOMAIN
+      enabled: false
+      timeout: 30
+      max_retries: 3
+    
+    ses:
+      # AWS credentials should be set in .env as AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+      enabled: false
+      region: "us-east-1"
+      timeout: 30
+      max_retries: 3
+
+  # Social media APIs
+  social_media:
+    twitter:
+      # API keys should be set in .env as TWITTER_API_KEY, TWITTER_API_SECRET, etc.
+      enabled: false
+      timeout: 30
+      max_retries: 3
+    
+    linkedin:
+      # API keys should be set in .env as LINKEDIN_CLIENT_ID, LINKEDIN_CLIENT_SECRET
+      enabled: false
+      timeout: 30
+      max_retries: 3
+
+  # Analytics and tracking
+  analytics:
+    google_analytics:
+      # Tracking ID should be set in .env as GA_TRACKING_ID
+      enabled: false
+    
+    mixpanel:
+      # Project token should be set in .env as MIXPANEL_TOKEN
+      enabled: false
+
+# =============================================================================
+# INTEGRATIONS
+# =============================================================================
+integrations:
+  # Monitoring
+  monitoring:
+    sentry:
+      enabled: false
+      # DSN should be set in .env as SENTRY_DSN
+      environment: "development"
+      traces_sample_rate: 0.1
+  
+  # Social Auth
+  social_auth:
+    enabled: false
+    providers:
+      google:
+        # OAuth credentials should be set in .env as GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
+        enabled: false
+      github:
+        # OAuth credentials should be set in .env as GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET
+        enabled: false
+      microsoft:
+        # OAuth credentials should be set in .env as MICROSOFT_CLIENT_ID, MICROSOFT_CLIENT_SECRET
+        enabled: false
+  
+  # File storage
+  storage:
+    aws_s3:
+      enabled: false
+      # AWS credentials should be set in .env as AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY
+      bucket_name: "your-bucket"
+      region: "us-east-1"
+    
+    cloudinary:
+      enabled: false
+      # Cloudinary credentials should be set in .env as CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
+      
+    local:
+      enabled: true
+      upload_folder: "uploads"
+
+# =============================================================================
+# CUSTOM APPLICATION SETTINGS
+# =============================================================================
+# Add your own application-specific settings here
+custom:
+  # Example: Company information
+  company:
+    name: "Your Company"
+    website: "https://your-company.com"
+    support_email: "support@your-company.com"
+  
+  # Example: Feature flags
+  experimental_features:
+    new_ui: false
+    beta_api: false
+  
+  # Example: Business logic settings
+  business:
+    max_users: 1000
+    trial_period_days: 14
+    supported_timezones:
+      - "UTC"
+      - "America/New_York"
+      - "Europe/London"
+      - "Asia/Tokyo"

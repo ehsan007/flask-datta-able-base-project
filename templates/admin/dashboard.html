@@ -1,0 +1,235 @@
+{% extends "admin/base.html" %}
+
+{% block page_title %}Dashboard{% endblock %}
+
+{% block page_actions %}
+<button class="btn rounded-3 px-4 shadow-sm" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%); border: none; color: white;">
+    <i class="fas fa-plus me-2"></i>New Campaign
+</button>
+{% endblock %}
+
+{% block page_content %}
+<!-- Welcome Section -->
+<div class="mb-5">
+    <div class="bg-white rounded-4 p-5 shadow-sm border-0">
+        <div class="row align-items-center">
+            <div class="col-lg-8">
+                <h2 class="text-dark fw-bold mb-3">Welcome back, {{ current_user.username if current_user.is_authenticated else 'User' }}!</h2>
+                <p class="text-muted mb-4 lead">Ready to create engaging email campaigns? Let's get started with your email marketing journey.</p>
+                <div class="d-flex gap-3">
+                    <button class="btn rounded-3 px-4" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%); border: none; color: white;">
+                        <i class="fas fa-envelope me-2"></i>Create Email
+                    </button>
+                    <button class="btn rounded-3 px-4" style="border: 2px solid #ff7849; color: #ff7849; background: transparent;">
+                        <i class="fas fa-chart-bar me-2"></i>View Analytics
+                    </button>
+                </div>
+            </div>
+            <div class="col-lg-4 text-center d-none d-lg-block">
+                <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 120px; height: 120px; background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%);">
+                    <i class="fas fa-rocket fa-3x text-white"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Stats Cards -->
+<div class="row g-4 mb-5">
+    <!-- Total Users Card -->
+    <div class="col-lg-3 col-md-6">
+        <div class="bg-white rounded-4 p-4 shadow-sm border-0 h-100">
+            <div class="d-flex align-items-center">
+                <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%);">
+                    <i class="fas fa-users text-white fa-lg"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted text-uppercase fw-bold small mb-1">Total Users</h6>
+                    <h3 class="fw-bold text-dark mb-0">{{ total_users }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Users Card -->
+    <div class="col-lg-3 col-md-6">
+        <div class="bg-white rounded-4 p-4 shadow-sm border-0 h-100">
+            <div class="d-flex align-items-center">
+                <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                    <i class="fas fa-user-check text-white fa-lg"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted text-uppercase fw-bold small mb-1">Active Users</h6>
+                    <h3 class="fw-bold text-dark mb-0">{{ active_users }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Users Card -->
+    <div class="col-lg-3 col-md-6">
+        <div class="bg-white rounded-4 p-4 shadow-sm border-0 h-100">
+            <div class="d-flex align-items-center">
+                <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);">
+                    <i class="fas fa-user-shield text-white fa-lg"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted text-uppercase fw-bold small mb-1">Admin Users</h6>
+                    <h3 class="fw-bold text-dark mb-0">{{ admin_users }}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Server Status Card -->
+    <div class="col-lg-3 col-md-6">
+        <div class="bg-white rounded-4 p-4 shadow-sm border-0 h-100">
+            <div class="d-flex align-items-center">
+                <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);">
+                    <i class="fas fa-server text-white fa-lg"></i>
+                </div>
+                <div>
+                    <h6 class="text-muted text-uppercase fw-bold small mb-1">Server Status</h6>
+                    <h3 class="fw-bold text-dark mb-0">Online</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Quick Actions Section -->
+<div class="row g-4 mb-5">
+    <div class="col-12">
+        <div class="bg-white rounded-4 p-5 shadow-sm border-0">
+            <h4 class="fw-bold text-dark mb-4">Quick Actions</h4>
+            <div class="row g-3">
+                <div class="col-lg-4 col-md-6">
+                    <a href="#" class="text-decoration-none d-block p-4 bg-light rounded-3 hover-shadow" style="transition: all 0.3s ease;">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%);">
+                                <i class="fas fa-envelope text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">Create Email</h6>
+                                <small class="text-muted">Design and send campaigns</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <a href="#" class="text-decoration-none d-block p-4 bg-light rounded-3 hover-shadow" style="transition: all 0.3s ease;">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                                <i class="fas fa-list text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">Manage Lists</h6>
+                                <small class="text-muted">Organize your contacts</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <a href="#" class="text-decoration-none d-block p-4 bg-light rounded-3 hover-shadow" style="transition: all 0.3s ease;">
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);">
+                                <i class="fas fa-chart-bar text-white"></i>
+                            </div>
+                            <div>
+                                <h6 class="fw-bold text-dark mb-1">View Reports</h6>
+                                <small class="text-muted">Track performance metrics</small>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Recent Activity Section -->
+<div class="row">
+    <div class="col-lg-8">
+        <div class="bg-white rounded-4 p-5 shadow-sm border-0">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="fw-bold text-dark mb-0">Recent Activity</h5>
+                <button class="btn btn-outline-secondary btn-sm rounded-3">
+                    <i class="fas fa-ellipsis-h"></i>
+                </button>
+            </div>
+            <!-- Activity List -->
+            <div class="space-y-4">
+                {% if recent_activities %}
+                    {% for activity in recent_activities %}
+                    <div class="d-flex align-items-center p-3 bg-light rounded-3">
+                        <div class="rounded-circle p-2 me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%);">
+                            <i class="fas fa-user text-white fa-sm"></i>
+                        </div>
+                        <div class="flex-grow-1">
+                            <h6 class="mb-1 fw-medium">{{ activity.description }}</h6>
+                            <small class="text-muted">{{ activity.created_at.strftime('%Y-%m-%d %H:%M') if activity.created_at else 'Recently' }}</small>
+                        </div>
+                    </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="text-center py-4">
+                        <div class="text-muted">
+                            <i class="fas fa-clock fa-2x mb-3 d-block"></i>
+                            <p>No recent activity to display</p>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <!-- System Info Card -->
+    <div class="col-lg-4">
+        <div class="bg-white rounded-4 p-5 shadow-sm border-0">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h5 class="fw-bold text-dark mb-0">System Info</h5>
+                <div class="rounded-pill px-3 py-1" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
+                    <small class="text-white fw-medium">
+                        <i class="fas fa-circle fa-xs me-1"></i>Online
+                    </small>
+                </div>
+            </div>
+            
+            <div class="space-y-3">
+                <div class="d-flex justify-content-between align-items-center py-2">
+                    <span class="text-muted">Version:</span>
+                    <strong class="text-dark">1.0.0</strong>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2 border-top">
+                    <span class="text-muted">Environment:</span>
+                    <strong class="text-dark">{{ get_env_var('FLASK_ENV', 'development') }}</strong>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2 border-top">
+                    <span class="text-muted">Database:</span>
+                    <strong class="text-dark">SQLite</strong>
+                </div>
+                <div class="d-flex justify-content-between align-items-center py-2 border-top">
+                    <span class="text-muted">Uptime:</span>
+                    <strong class="text-dark">{{ uptime if uptime else '24/7' }}</strong>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Additional Styles -->
+<style>
+    .hover-shadow:hover {
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
+        transform: translateY(-2px);
+    }
+    
+    .space-y-4 > * + * {
+        margin-top: 1rem;
+    }
+    
+    .space-y-3 > * + * {
+        margin-top: 0.75rem;
+    }
+</style>
+{% endblock %}

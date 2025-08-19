@@ -1,0 +1,185 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="d-flex min-vh-100">
+    <!-- Sidebar -->
+    <nav class="sidebar-modern text-white" style="width: 280px; min-height: 100vh; background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%);">
+        <!-- Sidebar Brand -->
+        <div class="sidebar-header p-4">
+            <h4 class="text-white mb-0 fw-bold">
+                <i class="fas fa-cube me-2"></i>Your Project
+            </h4>
+        </div>
+
+        <!-- Navigation -->
+        <div class="sidebar-nav px-3">
+            <!-- Main Section -->
+            <div class="nav-section mb-4">
+                <h6 class="text-muted text-uppercase fw-bold small px-3 mb-3">MAIN</h6>
+                <a href="{{ url_for('dashboard') }}" class="nav-item d-flex align-items-center p-3 mb-2 rounded text-decoration-none text-white {% if request.endpoint == 'dashboard' %}bg-primary{% else %}hover-bg-secondary{% endif %}" style="transition: all 0.3s ease;">
+                    <i class="fas fa-tachometer-alt me-3 fa-lg"></i>
+                    <span class="fw-medium">Dashboard</span>
+                </a>
+            </div>
+
+            <!-- Section Divider -->
+            <hr class="sidebar-divider mx-3 mb-4" style="border-color: rgba(255, 255, 255, 0.3);">
+
+            <!-- Administration Section -->
+            <div class="nav-section">
+                <h6 class="text-muted text-uppercase fw-bold small px-3 mb-3">ADMINISTRATION</h6>
+                <a href="{{ url_for('users') }}" class="nav-item d-flex align-items-center p-3 mb-2 rounded text-decoration-none text-white {% if request.endpoint == 'users' %}bg-primary{% else %}hover-bg-secondary{% endif %}" style="transition: all 0.3s ease;">
+                    <i class="fas fa-users me-3 fa-lg"></i>
+                    <span class="fw-medium">Users</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div class="flex-grow-1 d-flex flex-column" style="background: #f8f9fa;">
+        <!-- Modern Topbar -->
+        <nav class="topbar-modern bg-white shadow-sm border-bottom px-4 py-3">
+            <div class="d-flex justify-content-between align-items-center">
+                <!-- Mobile Menu Toggle -->
+                <button class="btn btn-link d-lg-none" id="sidebarToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+                
+                <!-- Page Title -->
+                <div class="d-none d-lg-block">
+                    <h4 class="mb-0 text-dark fw-semibold">{% block page_title %}Dashboard{% endblock %}</h4>
+                </div>
+
+                <!-- User Profile -->
+                <div class="dropdown">
+                    <button class="btn btn-link dropdown-toggle d-flex align-items-center text-decoration-none" 
+                            type="button" id="userDropdown" data-bs-toggle="dropdown">
+                        <div class="avatar-circle bg-primary text-white me-2" style="width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-weight: bold;">
+                            {{ current_user.username[0].upper() if current_user.is_authenticated else 'U' }}
+                        </div>
+                        <span class="text-dark fw-medium d-none d-md-inline">{{ current_user.username if current_user.is_authenticated else 'User' }}</span>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow">
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-user me-2"></i>Profile</a></li>
+                        <li><a class="dropdown-item" href="#"><i class="fas fa-cog me-2"></i>Settings</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        
+        <!-- Main Content Area -->
+        <div class="flex-grow-1 p-4">
+            <div class="container-fluid">
+                <!-- Page Actions (if any) -->
+                <div class="d-flex justify-content-end mb-4">
+                    {% block page_actions %}{% endblock %}
+                </div>
+
+                <!-- Main Content -->
+                <div class="content-area">
+                    {% block page_content %}{% endblock %}
+                </div>
+            </div>
+        </div>
+        
+        <!-- Modern Footer -->
+        <footer class="bg-white border-top py-3 px-4">
+            <div class="text-center text-muted">
+                <span>Copyright © Your Project {{ current_year() }}</span>
+            </div>
+        </footer>
+    </div>
+</div>
+
+<!-- Custom Styles for Modern Design -->
+<style>
+    .sidebar-modern {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 1000;
+    }
+    
+    .sidebar-modern .nav-item:hover {
+        background-color: rgba(255, 255, 255, 0.15) !important;
+    }
+    
+    .sidebar-modern .nav-item.bg-primary {
+        background-color: rgba(255, 255, 255, 0.2) !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .topbar-modern {
+        margin-left: 280px;
+    }
+    
+    .content-area {
+        margin-left: 280px;
+    }
+    
+    .avatar-circle {
+        font-size: 14px;
+    }
+    
+    .dropdown-menu {
+        border: 0;
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+    
+    .dropdown-item {
+        padding: 0.75rem 1rem;
+        font-size: 0.875rem;
+    }
+    
+    .dropdown-item:hover {
+        background-color: #f8f9fa;
+    }
+    
+    /* Mobile Responsive */
+    @media (max-width: 991.98px) {
+        .sidebar-modern {
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar-modern.show {
+            transform: translateX(0);
+        }
+        
+        .topbar-modern {
+            margin-left: 0;
+        }
+        
+        .content-area {
+            margin-left: 0;
+        }
+    }
+</style>
+
+<!-- Mobile Menu Script -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebarToggle = document.getElementById('sidebarToggle');
+        const sidebar = document.querySelector('.sidebar-modern');
+        
+        if (sidebarToggle && sidebar) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebar.classList.toggle('show');
+            });
+            
+            // Close sidebar when clicking outside on mobile
+            document.addEventListener('click', function(e) {
+                if (window.innerWidth <= 991.98) {
+                    if (!sidebar.contains(e.target) && !sidebarToggle.contains(e.target)) {
+                        sidebar.classList.remove('show');
+                    }
+                }
+            });
+        }
+    });
+</script>
+{% endblock %}

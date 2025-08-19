@@ -1,0 +1,172 @@
+{% extends "auth/base.html" %}
+
+{% block auth_title %}Create Account{% endblock %}
+{% block auth_subtitle %}Join us today{% endblock %}
+
+{% block auth_content %}
+<div class="row">
+    <div class="col-lg-6 d-none d-lg-block bg-register-image"></div>
+    <div class="col-lg-6">
+        <div class="p-5">
+            <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
+            </div>
+            
+            <!-- Flash messages -->
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    {% for category, message in messages %}
+                        <div class="alert alert-{{ 'danger' if category == 'error' else category }} alert-dismissible fade show" role="alert">
+                            {{ message }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+            
+            <form class="user needs-validation" method="POST" novalidate>
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <input type="text" class="form-control form-control-user" id="first_name" name="first_name"
+                                placeholder="First Name" required value="{{ request.form.get('first_name', '') }}">
+                            <div class="invalid-feedback">
+                                Please provide your first name.
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <input type="text" class="form-control form-control-user" id="last_name" name="last_name"
+                                placeholder="Last Name" required value="{{ request.form.get('last_name', '') }}">
+                            <div class="invalid-feedback">
+                                Please provide your last name.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="text" class="form-control form-control-user" id="username" name="username"
+                        placeholder="Username" required value="{{ request.form.get('username', '') }}">
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                    </div>
+                    <small class="form-text text-muted">Username must be unique and contain only letters, numbers, and underscores.</small>
+                </div>
+                <div class="form-group mb-3">
+                    <input type="email" class="form-control form-control-user" id="email" name="email"
+                        placeholder="Email Address" required value="{{ request.form.get('email', '') }}">
+                    <div class="invalid-feedback">
+                        Please provide a valid email address.
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="row">
+                        <div class="col-sm-6 mb-3 mb-sm-0">
+                            <div class="input-group">
+                                <input type="password" class="form-control form-control-user" id="password" name="password"
+                                    placeholder="Password" required minlength="6">
+                                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="#password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">
+                                Password must be at least 6 characters long.
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group">
+                                <input type="password" class="form-control form-control-user" id="confirm_password" name="confirm_password"
+                                    placeholder="Repeat Password" required minlength="6">
+                                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="#confirm_password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                            <div class="invalid-feedback">
+                                Please confirm your password.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group mb-3">
+                    <div class="custom-control custom-checkbox small">
+                        <input type="checkbox" class="custom-control-input" id="terms" name="terms" required>
+                        <label class="custom-control-label" for="terms">
+                            I agree to the <a href="#" data-bs-toggle="modal" data-bs-target="#termsModal">Terms of Service</a>
+                        </label>
+                        <div class="invalid-feedback">
+                            You must agree to the terms of service.
+                        </div>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-user btn-block w-100" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%); border: none; color: white;">
+                    Register Account
+                </button>
+                <hr>
+                <div class="text-center">
+                    <a class="btn btn-google btn-user btn-block w-100 mb-2" href="#">
+                        <i class="fab fa-google fa-fw"></i> Register with Google
+                    </a>
+                    <a class="btn btn-facebook btn-user btn-block w-100" href="#">
+                        <i class="fab fa-facebook-f fa-fw"></i> Register with Facebook
+                    </a>
+                </div>
+            </form>
+            <hr>
+            <div class="text-center">
+                <a class="small text-muted" href="#" onclick="alert('Forgot password functionality not implemented yet'); return false;">Forgot Password?</a>
+            </div>
+            <div class="text-center">
+                <a class="small" href="{{ url_for('login') }}">Already have an account? Login!</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Terms of Service Modal -->
+<div class="modal fade" id="termsModal" tabindex="-1" aria-labelledby="termsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="termsModalLabel">Terms of Service</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h6>1. Acceptance of Terms</h6>
+                <p>By accessing and using this service, you accept and agree to be bound by the terms and provision of this agreement.</p>
+                
+                <h6>2. User Account</h6>
+                <p>You are responsible for maintaining the confidentiality of your account and password and for restricting access to your computer.</p>
+                
+                <h6>3. Privacy Policy</h6>
+                <p>Your privacy is important to us. Please review our Privacy Policy to understand our practices.</p>
+                
+                <h6>4. Prohibited Uses</h6>
+                <p>You may not use our service for any illegal or unauthorized purpose nor may you, in the use of the service, violate any laws.</p>
+                
+                <h6>5. Modifications</h6>
+                <p>We reserve the right to modify these terms at any time. Changes will be effective immediately upon posting.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="document.getElementById('terms').checked = true;">I Agree</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+{{ super() }}
+<script>
+    // Password confirmation validation
+    document.getElementById('confirm_password').addEventListener('input', function() {
+        const password = document.getElementById('password').value;
+        const confirmPassword = this.value;
+        
+        if (password !== confirmPassword) {
+            this.setCustomValidity('Passwords do not match');
+        } else {
+            this.setCustomValidity('');
+        }
+    });
+</script>
+{% endblock %}

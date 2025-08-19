@@ -1,0 +1,239 @@
+// Card Component Styles
+
+.card {
+  position: relative;
+  border: 1px solid #e3ebf0;
+  border-radius: 0.35rem;
+  
+  .card-header {
+    background-color: #f8f9fc;
+    border-bottom: 1px solid #e3ebf0;
+    padding: 0.75rem 1.25rem;
+    margin-bottom: 0;
+    border-top-left-radius: calc(0.35rem - 1px);
+    border-top-right-radius: calc(0.35rem - 1px);
+    
+    &.py-3 {
+      padding-top: 0.75rem;
+      padding-bottom: 0.75rem;
+    }
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+}
+
+// Stat cards
+.card-stat {
+  border-left: 0.25rem solid $primary;
+  
+  &.border-left-success {
+    border-left-color: $success;
+  }
+  
+  &.border-left-info {
+    border-left-color: $info;
+  }
+  
+  &.border-left-warning {
+    border-left-color: $warning;
+  }
+  
+  &.border-left-danger {
+    border-left-color: $danger;
+  }
+  
+  .card-body {
+    .row {
+      .col {
+        .text-xs {
+          color: $primary;
+          font-weight: 700;
+          text-transform: uppercase;
+          margin-bottom: 1rem;
+        }
+        
+        .h5 {
+          font-size: 1.25rem;
+          font-weight: 700;
+          color: #5a5c69;
+          margin-bottom: 0;
+        }
+      }
+      
+      .col-auto {
+        i {
+          font-size: 2rem;
+          color: #dddfeb;
+        }
+      }
+    }
+  }
+}
+
+// Info cards with gradients
+.card-info {
+  background: linear-gradient(90deg, $info, lighten($info, 10%));
+  border: none;
+  
+  .card-body {
+    .text-white-50 {
+      color: rgba(255, 255, 255, 0.8) !important;
+    }
+  }
+}
+
+.card-primary {
+  background: linear-gradient(90deg, $primary, lighten($primary, 10%));
+  border: none;
+}
+
+.card-success {
+  background: linear-gradient(90deg, $success, lighten($success, 10%));
+  border: none;
+}
+
+.card-warning {
+  background: linear-gradient(90deg, $warning, lighten($warning, 10%));
+  border: none;
+}
+
+.card-danger {
+  background: linear-gradient(90deg, $danger, lighten($danger, 10%));
+  border: none;
+}
+
+// Progress card
+.card-progress {
+  .card-body {
+    .h4 {
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #5a5c69;
+      margin-bottom: 0.5rem;
+    }
+    
+    .small {
+      color: #858796;
+    }
+    
+    .progress {
+      height: 0.25rem;
+      margin-top: 0.5rem;
+    }
+  }
+}
+
+// Chart card
+.card-chart {
+  .card-header {
+    background-color: transparent;
+    border-bottom: none;
+    padding-bottom: 0;
+    
+    .dropdown {
+      .dropdown-toggle {
+        color: #5a5c69;
+        
+        &::after {
+          display: none;
+        }
+      }
+    }
+  }
+  
+  .card-body {
+    padding-top: 0;
+    
+    .chart-area {
+      position: relative;
+      height: 10rem;
+      width: 100%;
+    }
+    
+    .chart-bar {
+      position: relative;
+      height: 10rem;
+      width: 100%;
+    }
+    
+    .chart-pie {
+      position: relative;
+      height: 15rem;
+      width: 100%;
+    }
+  }
+}
+
+// Activity card
+.card-activity {
+  .list-group-item {
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    padding: 0.75rem 1.25rem;
+    
+    &:first-child {
+      border-top: 1px solid #e3ebf0;
+    }
+    
+    &:last-child {
+      border-bottom: none;
+    }
+    
+    .activity-icon {
+      width: 2.5rem;
+      height: 2.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      margin-right: 1rem;
+      flex-shrink: 0;
+      
+      &.bg-primary {
+        background-color: rgba($primary, 0.1) !important;
+        color: $primary;
+      }
+      
+      &.bg-success {
+        background-color: rgba($success, 0.1) !important;
+        color: $success;
+      }
+      
+      &.bg-warning {
+        background-color: rgba($warning, 0.1) !important;
+        color: $warning;
+      }
+      
+      &.bg-danger {
+        background-color: rgba($danger, 0.1) !important;
+        color: $danger;
+      }
+    }
+    
+    .activity-content {
+      flex: 1;
+      
+      .activity-title {
+        font-weight: 600;
+        color: #5a5c69;
+        margin-bottom: 0.25rem;
+      }
+      
+      .activity-time {
+        font-size: 0.75rem;
+        color: #858796;
+      }
+    }
+  }
+}
+
+// Hover effects
+.card:hover {
+  transform: translateY(-0.15rem);
+  box-shadow: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.1);
+  transition: all 0.3s;
+}

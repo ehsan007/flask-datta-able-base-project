@@ -1,0 +1,77 @@
+{
+	"folders": [
+		{
+			"name": "flask-datta-able-base",
+			"path": "."
+		}
+	],
+	"settings": {
+		"python.defaultInterpreterPath": "./venv/bin/python",
+		"python.terminal.activateEnvironment": true,
+		"files.exclude": {
+			"**/__pycache__": true,
+			"**/*.pyc": true,
+			"**/node_modules": true,
+			"**/.DS_Store": true,
+			"**/venv": false
+		},
+		"terminal.integrated.cwd": "${workspaceFolder}",
+		"editor.rulers": [88, 100]
+	},
+	"extensions": {
+		"recommendations": [
+			"ms-python.python",
+			"ms-python.black-formatter",
+			"formulahendry.auto-rename-tag",
+			"ms-vscode.vscode-html-css-support",
+			"christian-kohler.path-intellisense",
+			"glenn2223.live-sass"
+		]
+	},
+	"tasks": {
+		"version": "2.0.0",
+		"tasks": [
+			{
+				"label": "Setup Project",
+				"type": "shell",
+				"command": "./setup.sh",
+				"group": "build",
+				"presentation": {
+					"echo": true,
+					"reveal": "always",
+					"focus": false,
+					"panel": "shared"
+				},
+				"problemMatcher": []
+			},
+			{
+				"label": "Run Development Server",
+				"type": "shell",
+				"command": "./run.sh",
+				"group": "build",
+				"presentation": {
+					"echo": true,
+					"reveal": "always",
+					"focus": false,
+					"panel": "shared"
+				},
+				"problemMatcher": []
+			},
+			{
+				"label": "Build CSS (Watch)",
+				"type": "shell",
+				"command": "npm",
+				"args": ["run", "build-css"],
+				"group": "build",
+				"isBackground": true,
+				"presentation": {
+					"echo": true,
+					"reveal": "always",
+					"focus": false,
+					"panel": "shared"
+				},
+				"problemMatcher": []
+			}
+		]
+	}
+}

@@ -1,0 +1,108 @@
+{% extends "auth/base.html" %}
+
+{% block auth_title %}Welcome to Your Project{% endblock %}
+{% block auth_subtitle %}Modern Admin Dashboard{% endblock %}
+
+{% block auth_content %}
+<div class="row">
+    <div class="col-lg-12">
+        <div class="p-5 text-center">
+            <div class="mb-4">
+                <h1 class="h2 text-gray-900 mb-4">Welcome to Your Project!</h1>
+                <p class="lead">A modern admin dashboard built with Flask, featuring an intuitive orange-themed interface.</p>
+            </div>
+            
+            <div class="row mb-4">
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-chart-line" style="color: #ff7849;"></i>
+                                Modern Dashboard
+                            </h5>
+                            <p class="card-text">Beautiful, responsive dashboard with charts, widgets, and data tables.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-users" style="color: #28a745;"></i>
+                                User Management
+                            </h5>
+                            <p class="card-text">Complete user authentication system with role-based access control.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-database" style="color: #17a2b8;"></i>
+                                SQLite Database
+                            </h5>
+                            <p class="card-text">Built-in SQLite database with SQLAlchemy ORM for data persistence.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                <i class="fas fa-mobile-alt text-warning"></i>
+                                Responsive Design
+                            </h5>
+                            <p class="card-text">Mobile-first responsive design that works on all devices.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mb-4">
+                <h3 class="h4 text-gray-700 mb-3">Quick Start</h3>
+                <div class="alert alert-info">
+                    <strong>Default Login Credentials:</strong><br>
+                    <strong>Admin:</strong> username: <code>admin</code>, password: <code>admin123</code><br>
+                    <strong>Demo User:</strong> username: <code>demo</code>, password: <code>demo123</code>
+                </div>
+            </div>
+            
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                <a href="{{ url_for('login') }}" class="btn btn-lg px-4" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%); border: none; color: white;">
+                    <i class="fas fa-sign-in-alt me-2"></i>Login to Dashboard
+                </a>
+                <a href="{{ url_for('register') }}" class="btn btn-lg px-4" style="border: 2px solid #ff7849; color: #ff7849; background: transparent;">
+                    <i class="fas fa-user-plus me-2"></i>Create Account
+                </a>
+            </div>
+            
+            <hr class="my-4">
+            
+            <div class="row text-center">
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <i class="fab fa-bootstrap fa-3x text-primary mb-2"></i>
+                        <h6>Bootstrap 5</h6>
+                        <small class="text-muted">Modern CSS Framework</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <i class="fab fa-python fa-3x text-success mb-2"></i>
+                        <h6>Flask</h6>
+                        <small class="text-muted">Python Web Framework</small>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="mb-3">
+                        <i class="fas fa-bolt fa-3x text-warning mb-2"></i>
+                        <h6>HTMX</h6>
+                        <small class="text-muted">Dynamic Interactivity</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

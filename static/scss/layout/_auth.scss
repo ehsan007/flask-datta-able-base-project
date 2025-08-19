@@ -1,0 +1,271 @@
+// Authentication Layout Styles
+
+.auth-wrapper {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: linear-gradient(90deg, $primary, lighten($primary, 10%));
+  padding: 0;
+  
+  .auth-inner {
+    width: 100%;
+    padding: 2rem 0;
+    
+    .card {
+      border: 0;
+      border-radius: 1rem;
+      box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15);
+      overflow: hidden;
+    }
+  }
+}
+
+.auth-brand {
+  text-align: center;
+  margin-bottom: 2rem;
+  
+  .auth-logo {
+    width: 60px;
+    height: 60px;
+    margin: 0 auto 1rem auto;
+    display: block;
+  }
+  
+  h1 {
+    color: #fff;
+    font-size: 2rem;
+    font-weight: 300;
+    margin-bottom: 0.5rem;
+  }
+  
+  p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+}
+
+// Login card
+.login-card {
+  .card-header {
+    background-color: transparent;
+    border-bottom: none;
+    text-align: center;
+    padding: 2rem 2rem 0 2rem;
+    
+    h4 {
+      color: #5a5c69;
+      font-weight: 700;
+      margin-bottom: 0;
+    }
+  }
+  
+  .card-body {
+    padding: 2rem;
+    
+    .form-group {
+      margin-bottom: 1rem;
+    }
+    
+    .form-control {
+      font-size: 0.9rem;
+      border-radius: 10rem;
+      padding: 0.75rem 1rem;
+      
+      &.form-control-user {
+        border-radius: 10rem;
+        padding: 0.75rem 1rem;
+      }
+    }
+    
+    .btn {
+      border-radius: 10rem;
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 0.75rem 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1rem;
+      border: none;
+    }
+  }
+  
+  .card-footer {
+    background-color: transparent;
+    border-top: none;
+    text-align: center;
+    padding: 0 2rem 2rem 2rem;
+    
+    .small {
+      color: #858796;
+      
+      a {
+        color: $primary;
+        text-decoration: none;
+        
+        &:hover {
+          color: darken($primary, 15%);
+        }
+      }
+    }
+  }
+}
+
+// Register card
+.register-card {
+  .card-body {
+    padding: 2rem;
+    
+    .form-group {
+      margin-bottom: 1rem;
+      
+      .row {
+        .col-sm-6 {
+          margin-bottom: 0.5rem;
+          
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
+
+// Forgot password card
+.forgot-card {
+  .card-body {
+    padding: 2rem;
+    
+    .small {
+      font-weight: 500;
+      color: #858796;
+      margin-bottom: 2rem;
+      display: block;
+    }
+  }
+}
+
+// Social login buttons
+.btn-google {
+  color: #fff;
+  background-color: #ea4335;
+  border-color: #ea4335;
+  
+  &:hover {
+    color: #fff;
+    background-color: darken(#ea4335, 10%);
+    border-color: darken(#ea4335, 10%);
+  }
+}
+
+.btn-facebook {
+  color: #fff;
+  background-color: #3b5998;
+  border-color: #3b5998;
+  
+  &:hover {
+    color: #fff;
+    background-color: darken(#3b5998, 10%);
+    border-color: darken(#3b5998, 10%);
+  }
+}
+
+// Divider
+.divider {
+  position: relative;
+  text-align: center;
+  margin: 1.5rem 0;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background-color: #e3ebf0;
+  }
+  
+  span {
+    background-color: #fff;
+    color: #858796;
+    padding: 0 1rem;
+    font-size: 0.85rem;
+  }
+}
+
+// Remember me checkbox
+.custom-control-input:checked ~ .custom-control-label::before {
+  color: #fff;
+  border-color: $primary;
+  background-color: $primary;
+}
+
+// Error messages
+.error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #f5c6cb;
+  border-radius: 0.25rem;
+}
+
+.success-message {
+  background-color: #d4edda;
+  color: #155724;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid #c3e6cb;
+  border-radius: 0.25rem;
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  .auth-wrapper {
+    padding: 1rem;
+    
+    .auth-inner {
+      padding: 1rem 0;
+    }
+    
+    .auth-brand {
+      margin-bottom: 1rem;
+      
+      h1 {
+        font-size: 1.5rem;
+      }
+    }
+    
+    .login-card {
+      .card-header {
+        padding: 1.5rem 1.5rem 0 1.5rem;
+      }
+      
+      .card-body {
+        padding: 1.5rem;
+      }
+      
+      .card-footer {
+        padding: 0 1.5rem 1.5rem 1.5rem;
+      }
+    }
+  }
+}
+
+// Animation
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.auth-inner {
+  animation: fadeInUp 0.6s ease-out;
+}
