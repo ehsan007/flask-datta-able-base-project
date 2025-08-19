@@ -287,9 +287,9 @@ supervisord.pid
 *.crt
 *.csr
 
-# Email builder specific
-templates/emails/generated/
-static/email-assets/temp/
+# Application specific temporary files
+temp/
+generated/
 
 # IDE and development tools
 .devcontainer/

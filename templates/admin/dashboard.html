@@ -3,233 +3,344 @@
 {% block page_title %}Dashboard{% endblock %}
 
 {% block page_actions %}
-<button class="btn rounded-3 px-4 shadow-sm" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%); border: none; color: white;">
-    <i class="fas fa-plus me-2"></i>New Campaign
+<button class="btn btn-primary-modern">
+    <i class="fas fa-plus me-2" style="font-size: 12px;"></i>Add New
 </button>
 {% endblock %}
 
 {% block page_content %}
-<!-- Welcome Section -->
-<div class="mb-5">
-    <div class="bg-white rounded-4 p-5 shadow-sm border-0">
-        <div class="row align-items-center">
-            <div class="col-lg-8">
-                <h2 class="text-dark fw-bold mb-3">Welcome back, {{ current_user.username if current_user.is_authenticated else 'User' }}!</h2>
-                <p class="text-muted mb-4 lead">Ready to create engaging email campaigns? Let's get started with your email marketing journey.</p>
-                <div class="d-flex gap-3">
-                    <button class="btn rounded-3 px-4" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%); border: none; color: white;">
-                        <i class="fas fa-envelope me-2"></i>Create Email
+<!-- Metronic Welcome Bar -->
+<div class="alert" style="background: linear-gradient(135deg, var(--brand-primary), var(--brand-secondary)); border: none; border-radius: 6px; margin-bottom: 20px; padding: 16px 20px; box-shadow: 0 2px 8px rgba(0, 158, 247, 0.15);">
+    <div class="d-flex align-items-center">
+        <i class="fas fa-layer-group me-3" style="font-size: 18px; color: white;"></i>
+        <div>
+            <h5 style="margin: 0; color: white; font-size: 16px; font-weight: 600;">Welcome back, {{ current_user.username if current_user.is_authenticated else 'User' }}!</h5>
+            <p style="margin: 0; color: rgba(255,255,255,0.9); font-size: 14px;">Your modern web application dashboard. Monitor performance and manage your platform.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Key Metrics Grid -->
+<div class="row g-3 mb-4">
+    <!-- Total Users -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card-modern card-body-modern h-100" style="padding: 16px; text-align: center;">
+            <div class="mb-2">
+                <i class="fas fa-users" style="font-size: 20px; color: var(--brand-primary);"></i>
+            </div>
+            <h3 style="margin: 0; font-size: 24px; font-weight: 700; color: var(--text-primary);">{{ total_users }}</h3>
+            <p style="margin: 4px 0 0 0; font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; font-weight: 600;">Total Users</p>
+            <div style="font-size: 11px; color: var(--success); margin-top: 4px;">
+                <i class="fas fa-arrow-up me-1"></i>+12%
+            </div>
+        </div>
+    </div>
+
+    <!-- Active Users -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card-modern card-body-modern h-100" style="padding: 16px; text-align: center;">
+            <div class="mb-2">
+                <i class="fas fa-user-check" style="font-size: 20px; color: var(--success);"></i>
+            </div>
+            <h3 style="margin: 0; font-size: 24px; font-weight: 700; color: var(--text-primary);">{{ active_users }}</h3>
+            <p style="margin: 4px 0 0 0; font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; font-weight: 600;">Active Users</p>
+            <div style="font-size: 11px; color: var(--success); margin-top: 4px;">
+                <i class="fas fa-arrow-up me-1"></i>+8%
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Users -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card-modern card-body-modern h-100" style="padding: 16px; text-align: center;">
+            <div class="mb-2">
+                <i class="fas fa-user-shield" style="font-size: 20px; color: var(--warning);"></i>
+            </div>
+            <h3 style="margin: 0; font-size: 24px; font-weight: 700; color: var(--text-primary);">{{ admin_users }}</h3>
+            <p style="margin: 4px 0 0 0; font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; font-weight: 600;">Admin Users</p>
+            <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 4px;">
+                <i class="fas fa-minus me-1"></i>No change
+            </div>
+        </div>
+    </div>
+
+    <!-- Projects -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card-modern card-body-modern h-100" style="padding: 16px; text-align: center;">
+            <div class="mb-2">
+                <i class="fas fa-folder" style="font-size: 20px; color: var(--accent-purple);"></i>
+            </div>
+            <h3 style="margin: 0; font-size: 24px; font-weight: 700; color: var(--text-primary);">12</h3>
+            <p style="margin: 4px 0 0 0; font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; font-weight: 600;">Projects</p>
+            <div style="font-size: 11px; color: var(--success); margin-top: 4px;">
+                <i class="fas fa-arrow-up me-1"></i>+3%
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Rate -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card-modern card-body-modern h-100" style="padding: 16px; text-align: center;">
+            <div class="mb-2">
+                <i class="fas fa-chart-line" style="font-size: 20px; color: var(--info);"></i>
+            </div>
+            <h3 style="margin: 0; font-size: 24px; font-weight: 700; color: var(--text-primary);">94%</h3>
+            <p style="margin: 4px 0 0 0; font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; font-weight: 600;">Success Rate</p>
+            <div style="font-size: 11px; color: var(--success); margin-top: 4px;">
+                <i class="fas fa-arrow-up me-1"></i>+2.1%
+            </div>
+        </div>
+    </div>
+
+    <!-- Server Status -->
+    <div class="col-lg-2 col-md-4 col-6">
+        <div class="card-modern card-body-modern h-100" style="padding: 16px; text-align: center;">
+            <div class="mb-2">
+                <i class="fas fa-server" style="font-size: 20px; color: var(--success);"></i>
+            </div>
+            <h3 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--success);">ONLINE</h3>
+            <p style="margin: 4px 0 0 0; font-size: 12px; color: var(--text-tertiary); text-transform: uppercase; font-weight: 600;">Server Status</p>
+            <div style="font-size: 11px; color: var(--success); margin-top: 4px;">
+                <i class="fas fa-circle me-1" style="font-size: 6px;"></i>99.9% uptime
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Content Grid -->
+<div class="row g-3">
+    <!-- Recent Activity Feed -->
+    <div class="col-lg-4 col-md-6 col-12">
+        <div class="card-modern">
+            <div class="card-header-modern" style="padding: 16px 20px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-primary);">Recent Activity</h5>
+                    <button class="btn btn-sm" style="background: none; border: none; color: var(--text-tertiary); padding: 4px;">
+                        <i class="fas fa-ellipsis-h" style="font-size: 12px;"></i>
                     </button>
-                    <button class="btn rounded-3 px-4" style="border: 2px solid #ff7849; color: #ff7849; background: transparent;">
-                        <i class="fas fa-chart-bar me-2"></i>View Analytics
-                    </button>
                 </div>
             </div>
-            <div class="col-lg-4 text-center d-none d-lg-block">
-                <div class="rounded-circle d-inline-flex align-items-center justify-content-center" style="width: 120px; height: 120px; background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%);">
-                    <i class="fas fa-rocket fa-3x text-white"></i>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Stats Cards -->
-<div class="row g-4 mb-5">
-    <!-- Total Users Card -->
-    <div class="col-lg-3 col-md-6">
-        <div class="bg-white rounded-4 p-4 shadow-sm border-0 h-100">
-            <div class="d-flex align-items-center">
-                <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%);">
-                    <i class="fas fa-users text-white fa-lg"></i>
-                </div>
-                <div>
-                    <h6 class="text-muted text-uppercase fw-bold small mb-1">Total Users</h6>
-                    <h3 class="fw-bold text-dark mb-0">{{ total_users }}</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Active Users Card -->
-    <div class="col-lg-3 col-md-6">
-        <div class="bg-white rounded-4 p-4 shadow-sm border-0 h-100">
-            <div class="d-flex align-items-center">
-                <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
-                    <i class="fas fa-user-check text-white fa-lg"></i>
-                </div>
-                <div>
-                    <h6 class="text-muted text-uppercase fw-bold small mb-1">Active Users</h6>
-                    <h3 class="fw-bold text-dark mb-0">{{ active_users }}</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Admin Users Card -->
-    <div class="col-lg-3 col-md-6">
-        <div class="bg-white rounded-4 p-4 shadow-sm border-0 h-100">
-            <div class="d-flex align-items-center">
-                <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);">
-                    <i class="fas fa-user-shield text-white fa-lg"></i>
-                </div>
-                <div>
-                    <h6 class="text-muted text-uppercase fw-bold small mb-1">Admin Users</h6>
-                    <h3 class="fw-bold text-dark mb-0">{{ admin_users }}</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Server Status Card -->
-    <div class="col-lg-3 col-md-6">
-        <div class="bg-white rounded-4 p-4 shadow-sm border-0 h-100">
-            <div class="d-flex align-items-center">
-                <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #ffc107 0%, #fd7e14 100%);">
-                    <i class="fas fa-server text-white fa-lg"></i>
-                </div>
-                <div>
-                    <h6 class="text-muted text-uppercase fw-bold small mb-1">Server Status</h6>
-                    <h3 class="fw-bold text-dark mb-0">Online</h3>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Quick Actions Section -->
-<div class="row g-4 mb-5">
-    <div class="col-12">
-        <div class="bg-white rounded-4 p-5 shadow-sm border-0">
-            <h4 class="fw-bold text-dark mb-4">Quick Actions</h4>
-            <div class="row g-3">
-                <div class="col-lg-4 col-md-6">
-                    <a href="#" class="text-decoration-none d-block p-4 bg-light rounded-3 hover-shadow" style="transition: all 0.3s ease;">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%);">
-                                <i class="fas fa-envelope text-white"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold text-dark mb-1">Create Email</h6>
-                                <small class="text-muted">Design and send campaigns</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <a href="#" class="text-decoration-none d-block p-4 bg-light rounded-3 hover-shadow" style="transition: all 0.3s ease;">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
-                                <i class="fas fa-list text-white"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold text-dark mb-1">Manage Lists</h6>
-                                <small class="text-muted">Organize your contacts</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <a href="#" class="text-decoration-none d-block p-4 bg-light rounded-3 hover-shadow" style="transition: all 0.3s ease;">
-                        <div class="d-flex align-items-center">
-                            <div class="rounded-3 p-3 me-3" style="background: linear-gradient(135deg, #17a2b8 0%, #6f42c1 100%);">
-                                <i class="fas fa-chart-bar text-white"></i>
-                            </div>
-                            <div>
-                                <h6 class="fw-bold text-dark mb-1">View Reports</h6>
-                                <small class="text-muted">Track performance metrics</small>
-                            </div>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- Recent Activity Section -->
-<div class="row">
-    <div class="col-lg-8">
-        <div class="bg-white rounded-4 p-5 shadow-sm border-0">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h5 class="fw-bold text-dark mb-0">Recent Activity</h5>
-                <button class="btn btn-outline-secondary btn-sm rounded-3">
-                    <i class="fas fa-ellipsis-h"></i>
-                </button>
-            </div>
-            <!-- Activity List -->
-            <div class="space-y-4">
+            <div class="card-body-modern" style="padding: 0; max-height: 300px; overflow-y: auto;">
                 {% if recent_activities %}
                     {% for activity in recent_activities %}
-                    <div class="d-flex align-items-center p-3 bg-light rounded-3">
-                        <div class="rounded-circle p-2 me-3" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #ff7849 0%, #ff9f43 100%);">
-                            <i class="fas fa-user text-white fa-sm"></i>
+                    <div class="d-flex align-items-center" style="padding: 12px 20px; border-bottom: 1px solid var(--border-primary);">
+                        <div class="rounded-circle" style="width: 32px; height: 32px; background: var(--brand-primary); display: flex; align-items: center; justify-content: center; margin-right: 12px;">
+                            <i class="fas fa-user" style="font-size: 10px; color: white;"></i>
                         </div>
                         <div class="flex-grow-1">
-                            <h6 class="mb-1 fw-medium">{{ activity.description }}</h6>
-                            <small class="text-muted">{{ activity.created_at.strftime('%Y-%m-%d %H:%M') if activity.created_at else 'Recently' }}</small>
+                            <div style="font-size: 13px; font-weight: 500; color: var(--text-primary); margin-bottom: 2px;">{{ activity.description }}</div>
+                            <div style="font-size: 11px; color: var(--text-tertiary);">{{ activity.created_at.strftime('%H:%M') if activity.created_at else 'Recently' }}</div>
                         </div>
                     </div>
                     {% endfor %}
                 {% else %}
-                    <div class="text-center py-4">
-                        <div class="text-muted">
-                            <i class="fas fa-clock fa-2x mb-3 d-block"></i>
-                            <p>No recent activity to display</p>
-                        </div>
+                    <div class="text-center" style="padding: 40px 20px;">
+                        <i class="fas fa-inbox" style="font-size: 32px; color: var(--text-tertiary); margin-bottom: 12px;"></i>
+                        <p style="margin: 0; font-size: 13px; color: var(--text-secondary);">No recent activity</p>
                     </div>
                 {% endif %}
             </div>
         </div>
     </div>
 
-    <!-- System Info Card -->
-    <div class="col-lg-4">
-        <div class="bg-white rounded-4 p-5 shadow-sm border-0">
-            <div class="d-flex justify-content-between align-items-center mb-4">
-                <h5 class="fw-bold text-dark mb-0">System Info</h5>
-                <div class="rounded-pill px-3 py-1" style="background: linear-gradient(135deg, #28a745 0%, #20c997 100%);">
-                    <small class="text-white fw-medium">
-                        <i class="fas fa-circle fa-xs me-1"></i>Online
-                    </small>
+    <!-- Quick Actions -->
+    <div class="col-lg-4 col-md-6 col-12">
+        <div class="card-modern">
+            <div class="card-header-modern" style="padding: 16px 20px;">
+                <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-primary);">Quick Actions</h5>
+            </div>
+            <div class="card-body-modern" style="padding: 20px;">
+                <div class="d-grid gap-2">
+                    <a href="#" class="btn btn-sm text-start" style="background: var(--bg-tertiary); border: 1px solid var(--border-primary); border-radius: 6px; padding: 12px 16px; text-decoration: none; transition: all 0.15s ease;">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-plus" style="color: var(--brand-primary); margin-right: 12px; font-size: 14px;"></i>
+                            <div>
+                                <div style="font-size: 13px; font-weight: 500; color: var(--text-primary);">Create Project</div>
+                                <div style="font-size: 11px; color: var(--text-tertiary);">Start a new project</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="btn btn-sm text-start" style="background: var(--bg-tertiary); border: 1px solid var(--border-primary); border-radius: 6px; padding: 12px 16px; text-decoration: none; transition: all 0.15s ease;">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-list" style="color: var(--success); margin-right: 12px; font-size: 14px;"></i>
+                            <div>
+                                <div style="font-size: 13px; font-weight: 500; color: var(--text-primary);">Manage Content</div>
+                                <div style="font-size: 11px; color: var(--text-tertiary);">Organize your content</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="#" class="btn btn-sm text-start" style="background: var(--bg-tertiary); border: 1px solid var(--border-primary); border-radius: 6px; padding: 12px 16px; text-decoration: none; transition: all 0.15s ease;">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-chart-bar" style="color: var(--accent-purple); margin-right: 12px; font-size: 14px;"></i>
+                            <div>
+                                <div style="font-size: 13px; font-weight: 500; color: var(--text-primary);">View Reports</div>
+                                <div style="font-size: 11px; color: var(--text-tertiary);">Track performance metrics</div>
+                            </div>
+                        </div>
+                    </a>
+                    <a href="{{ url_for('users') }}" class="btn btn-sm text-start" style="background: var(--bg-tertiary); border: 1px solid var(--border-primary); border-radius: 6px; padding: 12px 16px; text-decoration: none; transition: all 0.15s ease;">
+                        <div class="d-flex align-items-center">
+                            <i class="fas fa-users" style="color: var(--warning); margin-right: 12px; font-size: 14px;"></i>
+                            <div>
+                                <div style="font-size: 13px; font-weight: 500; color: var(--text-primary);">Manage Users</div>
+                                <div style="font-size: 11px; color: var(--text-tertiary);">User administration</div>
+                            </div>
+                        </div>
+                    </a>
                 </div>
             </div>
-            
-            <div class="space-y-3">
-                <div class="d-flex justify-content-between align-items-center py-2">
-                    <span class="text-muted">Version:</span>
-                    <strong class="text-dark">1.0.0</strong>
+        </div>
+    </div>
+
+    <!-- System Information -->
+    <div class="col-lg-4 col-12">
+        <div class="card-modern">
+            <div class="card-header-modern" style="padding: 16px 20px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-primary);">System Info</h5>
+                    <span class="badge" style="background: var(--success); color: white; font-size: 10px; padding: 2px 6px; border-radius: 12px;">
+                        <i class="fas fa-circle me-1" style="font-size: 6px;"></i>Online
+                    </span>
                 </div>
-                <div class="d-flex justify-content-between align-items-center py-2 border-top">
-                    <span class="text-muted">Environment:</span>
-                    <strong class="text-dark">{{ get_env_var('FLASK_ENV', 'development') }}</strong>
-                </div>
-                <div class="d-flex justify-content-between align-items-center py-2 border-top">
-                    <span class="text-muted">Database:</span>
-                    <strong class="text-dark">SQLite</strong>
-                </div>
-                <div class="d-flex justify-content-between align-items-center py-2 border-top">
-                    <span class="text-muted">Uptime:</span>
-                    <strong class="text-dark">{{ uptime if uptime else '24/7' }}</strong>
+            </div>
+            <div class="card-body-modern" style="padding: 20px;">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div style="text-align: center; padding: 12px; background: var(--bg-tertiary); border-radius: 6px; border: 1px solid var(--border-primary);">
+                            <div style="font-size: 18px; font-weight: 700; color: var(--text-primary);">1.0.0</div>
+                            <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">VERSION</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div style="text-align: center; padding: 12px; background: var(--bg-tertiary); border-radius: 6px; border: 1px solid var(--border-primary);">
+                            <div style="font-size: 18px; font-weight: 700; color: var(--text-primary);">{{ get_env_var('FLASK_ENV', 'dev') | upper }}</div>
+                            <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">ENVIRONMENT</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div style="text-align: center; padding: 12px; background: var(--bg-tertiary); border-radius: 6px; border: 1px solid var(--border-primary);">
+                            <div style="font-size: 18px; font-weight: 700; color: var(--text-primary);">SQLite</div>
+                            <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">DATABASE</div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div style="text-align: center; padding: 12px; background: var(--bg-tertiary); border-radius: 6px; border: 1px solid var(--border-primary);">
+                            <div style="font-size: 18px; font-weight: 700; color: var(--success);">24/7</div>
+                            <div style="font-size: 11px; color: var(--text-tertiary); margin-top: 2px;">UPTIME</div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<!-- Additional Styles -->
+<!-- Recent Users Table -->
+<div class="row mt-3">
+    <div class="col-12">
+        <div class="card-modern">
+            <div class="card-header-modern" style="padding: 16px 20px;">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h5 style="margin: 0; font-size: 14px; font-weight: 600; color: var(--text-primary);">Recent Users</h5>
+                    <a href="{{ url_for('users') }}" class="btn btn-sm btn-secondary-modern">View All</a>
+                </div>
+            </div>
+            <div class="card-body-modern" style="padding: 0;">
+                <div class="table-responsive">
+                    <table class="table table-hover" style="margin: 0; font-size: 13px;">
+                        <thead style="background: var(--bg-tertiary);">
+                            <tr>
+                                <th style="padding: 12px 20px; font-weight: 600; font-size: 11px; color: var(--text-tertiary); text-transform: uppercase;">User</th>
+                                <th style="padding: 12px 20px; font-weight: 600; font-size: 11px; color: var(--text-tertiary); text-transform: uppercase;">Email</th>
+                                <th style="padding: 12px 20px; font-weight: 600; font-size: 11px; color: var(--text-tertiary); text-transform: uppercase;">Status</th>
+                                <th style="padding: 12px 20px; font-weight: 600; font-size: 11px; color: var(--text-tertiary); text-transform: uppercase;">Role</th>
+                                <th style="padding: 12px 20px; font-weight: 600; font-size: 11px; color: var(--text-tertiary); text-transform: uppercase;">Last Login</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Sample data for demonstration -->
+                            <tr style="border-bottom: 1px solid var(--border-primary);">
+                                <td style="padding: 12px 20px;">
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle" style="width: 28px; height: 28px; background: var(--brand-primary); display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                                            <span style="font-size: 11px; color: white; font-weight: 600;">A</span>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 500; color: var(--text-primary); font-size: 13px;">Admin User</div>
+                                            <div style="font-size: 11px; color: var(--text-tertiary);">admin</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="padding: 12px 20px; color: var(--text-secondary);">admin@example.com</td>
+                                <td style="padding: 12px 20px;">
+                                    <span class="badge" style="background: var(--success); color: white; font-size: 10px; padding: 2px 6px; border-radius: 12px;">Active</span>
+                                </td>
+                                <td style="padding: 12px 20px;">
+                                    <span class="badge" style="background: var(--brand-primary); color: white; font-size: 10px; padding: 2px 6px; border-radius: 12px;">Admin</span>
+                                </td>
+                                <td style="padding: 12px 20px; color: var(--text-secondary);">2 hours ago</td>
+                            </tr>
+                            <tr style="border-bottom: 1px solid var(--border-primary);">
+                                <td style="padding: 12px 20px;">
+                                    <div class="d-flex align-items-center">
+                                        <div class="rounded-circle" style="width: 28px; height: 28px; background: var(--success); display: flex; align-items: center; justify-content: center; margin-right: 10px;">
+                                            <span style="font-size: 11px; color: white; font-weight: 600;">J</span>
+                                        </div>
+                                        <div>
+                                            <div style="font-weight: 500; color: var(--text-primary); font-size: 13px;">John Doe</div>
+                                            <div style="font-size: 11px; color: var(--text-tertiary);">johndoe</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td style="padding: 12px 20px; color: var(--text-secondary);">john@example.com</td>
+                                <td style="padding: 12px 20px;">
+                                    <span class="badge" style="background: var(--success); color: white; font-size: 10px; padding: 2px 6px; border-radius: 12px;">Active</span>
+                                </td>
+                                <td style="padding: 12px 20px;">
+                                    <span class="badge" style="background: var(--text-tertiary); color: white; font-size: 10px; padding: 2px 6px; border-radius: 12px;">User</span>
+                                </td>
+                                <td style="padding: 12px 20px; color: var(--text-secondary);">1 day ago</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <style>
-    .hover-shadow:hover {
-        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
-        transform: translateY(-2px);
+    /* Professional hover effects */
+    .card-modern:hover {
+        box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        transform: translateY(-1px);
     }
     
-    .space-y-4 > * + * {
-        margin-top: 1rem;
+    /* Button hover effects */
+    .btn:hover {
+        transform: translateY(-1px);
     }
     
-    .space-y-3 > * + * {
-        margin-top: 0.75rem;
+    /* Action button styles */
+    .btn[href]:hover {
+        background: var(--bg-tertiary) !important;
+        border-color: var(--border-secondary) !important;
+    }
+    
+    /* Table row hover */
+    .table-hover tbody tr:hover {
+        background-color: var(--bg-tertiary);
+    }
+    
+    /* Light theme table styling */
+    .table {
+        color: var(--text-primary);
+    }
+    
+    .table thead th {
+        background-color: var(--bg-tertiary);
+        color: var(--text-tertiary);
+        border-color: var(--border-primary);
     }
 </style>
 {% endblock %}

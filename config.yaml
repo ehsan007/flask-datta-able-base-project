@@ -171,12 +171,13 @@ database:
 # =============================================================================
 email:
   templates:
+    # Template files (customize as needed)
     welcome: "emails/welcome.html"
     reset_password: "emails/reset_password.html"
     notification: "emails/notification.html"
 
   # Email settings
-  default_sender: "noreply@flask-datta-able-base.com"
+  default_sender: "noreply@your-domain.com"
   send_file_max_age: 43200
 
 # =============================================================================

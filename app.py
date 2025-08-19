@@ -72,13 +72,8 @@ def optional_auth_required(f):
         disable_auth = get_env('DISABLE_AUTH', 'false').lower() == 'true'
         
         if disable_auth:
-            # If auth is disabled, create a mock admin user for the session
-            # This allows pages to work without breaking
-            if not current_user.is_authenticated:
-                # You can either redirect to login or create a mock user session
-                # For maximum compatibility, we'll redirect with a warning
-                flash('⚠️ DEVELOPMENT MODE: Authentication disabled!', 'warning')
-                # Let the request continue - the template will handle missing current_user gracefully
+            # If auth is disabled, allow the request to continue
+            # The template will show the warning banner in the sidebar
             return f(*args, **kwargs)
         else:
             # Normal authentication required
